@@ -1,0 +1,145 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  Estil per al ListBoxItem personalitzat  -->
+    <Style x:Key="ModernSidebarStyle" TargetType="ListBoxItem">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="#2C3E50" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Cursor" Value="Hand" />
+
+        <!--  Plantilla personalitzada  -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border
+                        Name="Bd"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Left" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!--  Canvi de color en passar el ratolí  -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#34495E" />
+                        </Trigger>
+                        <!--  Canvi de color i estil en seleccionar  -->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#1ABC9C" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Estil modern per a les etiquetes (Label)  -->
+    <Style x:Key="ModernLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="#2C3E50" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,5,5,0" />
+    </Style>
+
+    <!--  Estil modern per a les caixes de text (TextBox)  -->
+    <Style x:Key="ModernTextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="#34495E" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="Margin" Value="0,5" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="#D5D8DC" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+
+    <!--  Estil modern per a DatePicker  -->
+    <Style x:Key="ModernDatePickerStyle" TargetType="DatePicker">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="#34495E" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="Margin" Value="0,5" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="#D5D8DC" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+
+    <!--  Estil modern per als botons (Button)  -->
+    <Style x:Key="ModernPrimaryButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="5,5" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="#3498DB" />
+        <Setter Property="BorderBrush" Value="#2980B9" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Margin" Value="5,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Padding="10"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!--  Efecte hover  -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#2980B9" />
+                        </Trigger>
+                        <!--  Efecte de deshabilitació  -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="#BDC3C7" />
+                            <Setter Property="BorderBrush" Value="#95A5A6" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ModernSecundaryButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="5,5" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="#790000" />
+        <Setter Property="BorderBrush" Value="#890025" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Margin" Value="5,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Padding="10"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!--  Efecte hover  -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#B94424" />
+                        </Trigger>
+                        <!--  Efecte de deshabilitació  -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="#B94424" />
+                            <Setter Property="BorderBrush" Value="#660025" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

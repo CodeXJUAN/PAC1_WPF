@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>WPF_MVVM_SPA_Template</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ViewModels\Option1ViewModel.cs" />
+    <Compile Remove="ViewModels\Option2ViewModel.cs" />
+    <Compile Remove="Views\Option1View.xaml.cs" />
+    <Compile Remove="Views\Option2View.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Views\NewFile1.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Views\Option1View.xaml" />
+    <Page Remove="Views\Option2View.xaml" />
+  </ItemGroup>
+
+</Project>
