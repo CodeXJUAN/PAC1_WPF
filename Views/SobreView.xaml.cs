@@ -18,9 +18,9 @@ namespace WPF_MVVM_SPA_Template.Views
     /// <summary>
     /// Lógica de interacción para UserControl5.xaml
     /// </summary>
-    public partial class UserControl5 : UserControl
+    public partial class SobreView : UserControl
     {
-        public UserControl5()
+        public SobreView()
         {
             InitializeComponent();
         }

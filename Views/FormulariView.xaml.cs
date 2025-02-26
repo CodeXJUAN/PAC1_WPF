@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WPF_MVVM_SPA_Template.Views
 {
     /// <summary>
-    /// Lógica de interacción para UserControl3.xaml
+    /// Lógica de interacción para FormulariView.xaml
     /// </summary>
-    public partial class UserControl3 : UserControl
+    public partial class FormulariView : UserControl
     {
-        public UserControl3()
+        public FormulariView()
         {
             InitializeComponent();
         }

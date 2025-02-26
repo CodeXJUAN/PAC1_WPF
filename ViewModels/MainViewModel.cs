@@ -4,34 +4,40 @@ using WPF_MVVM_SPA_Template.Views;
 
 namespace WPF_MVVM_SPA_Template.ViewModels
 {
-    //Els ViewModels deriven de INotifyPropertyChanged per poder fer Binding de propietats
     class MainViewModel : INotifyPropertyChanged
     {
-
         // ViewModels de les diferents opcions
         public IniciViewModel IniciVM { get; set; }
         public ClientsViewModel ClientsVM { get; set; }
         public FormViewModel FormulariVM { get; set; }
         public EstadisticaViewModel EstadisticaVM { get; set; }
+        public SobreViewModel SobreVM { get; set; }
 
-        // Propietat que conté la vista actual (és un objecte)
+        // Propietat que conté la vista actual
         private object? _currentView;
         public object? CurrentView
         {
-            get { return _currentView; }
-            set { _currentView = value; OnPropertyChanged(); }
+            get => _currentView;
+            set
+            {
+                _currentView = value;
+                OnPropertyChanged();
+            }
         }
 
-        // Propietat per controlar la vista seleccionada al ListBox (És un string)
+        // Propietat per controlar la vista seleccionada al ListBox
         private string? _selectedView;
         public string? SelectedView
         {
-            get { return _selectedView; }
+            get => _selectedView;
             set
             {
-                _selectedView = value;
-                OnPropertyChanged();
-                ChangeView();
+                if (_selectedView != value)
+                {
+                    _selectedView = value;
+                    OnPropertyChanged();
+                    ChangeView();
+                }
             }
         }
 
@@ -42,6 +48,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             ClientsVM = new ClientsViewModel(this);
             FormulariVM = new FormViewModel(this);
             EstadisticaVM = new EstadisticaViewModel(this);
+            SobreVM = new SobreViewModel(this);
 
             // Mostra la vista principal inicialment
             SelectedView = "IniciTag";
@@ -51,20 +58,34 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // Canvi de Vista
         private void ChangeView()
         {
-            switch (SelectedView)
+            switch (SelectedView ?? string.Empty)
             {
-                case "IniciTag": CurrentView = new IniciView { DataContext = IniciVM }; break;
-                case "ClientsTag": CurrentView = new ClientsView { DataContext = ClientsVM }; break;
-                case "//tagbuton": CurrentView = new SobreView { DataContext = ClientsVM }; break;
-                
+                case "IniciTag":
+                    CurrentView = new IniciView { DataContext = IniciVM };
+                    break;
+                case "ClientsTag":
+                    CurrentView = new ClientsView { DataContext = ClientsVM };
+                    break;
+                case "FormulariTag":
+                    CurrentView = new FormulariView { DataContext = FormulariVM };
+                    break;
+                case "EstadisticaTag":
+                    CurrentView = new EstadisticaView { DataContext = EstadisticaVM };
+                    break;
+                case "SobreTag":
+                    CurrentView = new SobreView { DataContext = SobreVM };
+                    break;
+                default:
+                    CurrentView = new IniciView { DataContext = IniciVM };
+                    break;
             }
         }
 
-        // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
+        // Implementació de INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string? name = null)
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

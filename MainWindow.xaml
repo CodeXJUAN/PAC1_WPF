@@ -10,15 +10,16 @@
     Height="450"
     mc:Ignorable="d">
     <DockPanel>
-        <!--  Barra de navegació lateral estil SPA amb ListBox  -->
+
         <ListBox
-            Width="100"
+            Width="120"
             Background="#2C3E50"
             BorderThickness="0"
             DockPanel.Dock="Left"
             Foreground="White"
             SelectedValue="{Binding SelectedView, Mode=TwoWay}"
             SelectedValuePath="Tag">
+
             <ListBoxItem
                 Padding="10"
                 HorizontalContentAlignment="Left"
@@ -26,6 +27,7 @@
                 FontSize="16"
                 Style="{StaticResource ModernSidebarStyle}"
                 Tag="IniciTag" />
+
             <ListBoxItem
                 Padding="10"
                 HorizontalContentAlignment="Left"
@@ -33,15 +35,16 @@
                 FontSize="16"
                 Style="{StaticResource ModernSidebarStyle}"
                 Tag="ClientsTag" />
+
             <ListBoxItem
                 Padding="10"
                 HorizontalContentAlignment="Left"
-                Content="About us"
+                Content="Sobre"
                 FontSize="16"
                 Style="{StaticResource ModernSidebarStyle}"
-                Tag="About_usTag" />
+                Tag="SobreTag" />
         </ListBox>
-        <!--  Secció de contingut dinàmic (Grid)  -->
+
         <Grid
             Name="MainContent"
             Margin="10"

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WPF_MVVM_SPA_Template.Views
 {
     /// <summary>
-    /// Lógica de interacción para UserControl4.xaml
+    /// Lógica de interacción para EstadisticaView.xaml
     /// </summary>
-    public partial class UserControl4 : UserControl
+    public partial class EstadisticaView : UserControl
     {
-        public UserControl4()
+        public EstadisticaView()
         {
             InitializeComponent();
         }

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WPF_MVVM_SPA_Template.Views
 {
     /// <summary>
-    /// Lógica de interacción para UserControl1.xaml
+    /// Lógica de interacción para IniciView.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class IniciView : UserControl
     {
-        public UserControl1()
+        public IniciView()
         {
             InitializeComponent();
         }
