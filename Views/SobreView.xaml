@@ -11,64 +11,58 @@
     mc:Ignorable="d">
 
     <UserControl.DataContext>
-        <local1:SobreViewModel />
+        <local:SobreViewModel />
     </UserControl.DataContext>
 
     <Grid Margin="10" Background="White">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="24"
-                FontWeight="Bold"
-                Foreground="#2C3E50"
-                Text="{Binding Titulo}" />
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="24"
+            FontWeight="Bold"
+            Foreground="#2C3E50"
+            Text="{Binding Titulo}" />
 
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="0"
-                Width="71"
-                Margin="72,63,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                FontSize="20"
-                FontWeight="Bold"
-                Foreground="#2C3E50"
-                Text="Fet per:" />
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            FontSize="20"
+            FontWeight="Bold"
+            Foreground="#2C3E50"
+            Text="Fet per:" />
 
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="0"
-                Width="176"
-                Margin="72,107,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                FontSize="20"
-                FontWeight="Normal"
-                Foreground="#2C3E50"
-                Text="{Binding Autor1}" />
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="#2C3E50"
+            Text="{Binding Autor1}" />
 
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="0"
-                Width="122"
-                Margin="72,135,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                FontSize="20"
-                FontWeight="Normal"
-                Foreground="#2C3E50"
-                Text="{Binding Autor2}" />
-        </Grid>
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="#2C3E50"
+            Text="{Binding Autor2}" />
     </Grid>
 </UserControl>

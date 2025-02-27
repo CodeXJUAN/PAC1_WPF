@@ -61,18 +61,15 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             switch (SelectedView ?? string.Empty)
             {
                 case "IniciTag":
+                    IniciVM ??= new IniciViewModel(this); // Lazy loading
                     CurrentView = new IniciView { DataContext = IniciVM };
                     break;
                 case "ClientsTag":
+                    ClientsVM ??= new ClientsViewModel(this); // Lazy loading
                     CurrentView = new ClientsView { DataContext = ClientsVM };
                     break;
-                case "FormulariTag":
-                    CurrentView = new FormulariView { DataContext = FormulariVM };
-                    break;
-                case "EstadisticaTag":
-                    CurrentView = new EstadisticaView { DataContext = EstadisticaVM };
-                    break;
                 case "SobreTag":
+                    SobreVM ??= new SobreViewModel(this); // Lazy loading
                     CurrentView = new SobreView { DataContext = SobreVM };
                     break;
                 default:
