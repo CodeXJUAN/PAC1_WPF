@@ -4,9 +4,29 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WPF_MVVM_SPA_Template.Views"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid Margin="10" Background="White" />
+    <Grid>
+        <ComboBox
+            Width="120"
+            Margin="10,10,0,0"
+            HorizontalAlignment="Left"
+            ItemsSource="{Binding ChartTypes}"
+            SelectedItem="{Binding SelectedChartType}" />
+
+        <lvc:CartesianChart
+            Grid.Row="1"
+            LegendLocation="Right"
+            Series="{Binding SeriesCollection}">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Mesos" Labels="{Binding Labels}" />
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Rendiment" />
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
+    </Grid>
 </UserControl>

@@ -22,7 +22,22 @@ namespace WPF_MVVM_SPA_Template.Views
     {
         public SobreView()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción (por ejemplo, registrar el error)
+                LogError(ex);
+            }
+        }
+
+        private void LogError(Exception ex)
+        {
+            // Implementar el registro del error
+            // Por ejemplo, escribir en un archivo de log
+            System.IO.File.AppendAllText("error.log", $"{DateTime.Now}: {ex.Message}{Environment.NewLine}");
         }
     }
 }

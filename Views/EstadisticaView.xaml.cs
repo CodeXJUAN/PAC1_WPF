@@ -12,17 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Wpf;
+using WPF_MVVM_SPA_Template.ViewModels;
 
 namespace WPF_MVVM_SPA_Template.Views
 {
-    /// <summary>
-    /// Lógica de interacción para EstadisticaView.xaml
-    /// </summary>
-    public partial class EstadisticaView : UserControl
-    {
-        public EstadisticaView()
+        /// <summary>
+        /// Lógica de interacción para EstadisticaView.xaml
+        /// </summary>
+        public partial class EstadisticaView : UserControl
         {
-            InitializeComponent();
-        }
+            public EstadisticaView()
+            {
+                InitializeComponent();
+                DataContext = new EstadisticaView();
+            }
     }
 }

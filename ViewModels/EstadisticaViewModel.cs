@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using LiveCharts.Wpf;
+using LiveCharts;
 using WPF_MVVM_SPA_Template.Models;
 
 namespace WPF_MVVM_SPA_Template.ViewModels
@@ -8,53 +10,77 @@ namespace WPF_MVVM_SPA_Template.ViewModels
     //Els ViewModels deriven de INotifyPropertyChanged per poder fer Binding de propietats
     class EstadisticaViewModel : INotifyPropertyChanged
     {
-        // Referència al ViewModel principal
-        private readonly MainViewModel _mainViewModel;
-        // Col·lecció de Courses (podrien carregar-se d'una base de dades)
-        // ObservableCollection és una llista que notifica els canvis a la vista
-        public ObservableCollection<Course> Courses { get; set; } = new ObservableCollection<Course>();
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        // Propietat per controlar el curs seleccionat a la vista
-        private Course? _selectedCourse;
-        public Course? SelectedCourse
+        private SeriesCollection _seriesCollection;
+        private string _selectedChartType;
+
+        public List<string> ChartTypes { get; } = new() { "Líneas", "Barras" };
+
+        public string[] Labels { get; set; } = new string[]
+        { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
+        public SeriesCollection SeriesCollection
         {
-            get { return _selectedCourse; }
-            set { _selectedCourse = value; OnPropertyChanged(); }
+            get => _seriesCollection;
+            set { _seriesCollection = value; OnPropertyChanged(); }
         }
 
-        // RelayCommands connectats via Binding als botons de la vista
-        public RelayCommand AddCourseCommand { get; set; }
-        public RelayCommand DelCourseCommand { get; set; }
+        public string SelectedChartType
+        {
+            get => _selectedChartType;
+            set
+            {
+                if (_selectedChartType != value)
+                {
+                    _selectedChartType = value;
+                    UpdateChartType();
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public EstadisticaViewModel(MainViewModel mainViewModel)
         {
-            _mainViewModel = mainViewModel;
-            // Carreguem cursos a memòria mode de prova
-            Courses.Add(new Course { Id = 1, Name = "Bases de Dades" });
-            Courses.Add(new Course { Id = 2, Name = "Programació d'Interfícies" });
-
-            // Inicialitzem els diferents commands disponibles (accions)
-            AddCourseCommand = new RelayCommand(x => AddCourse());
-            DelCourseCommand = new RelayCommand(x => DelCourse());
+            GenerateData();
+            SelectedChartType = "Líneas";
         }
 
-        //Mètodes per afegir i eliminar cursos de la col·lecció
-        private void AddCourse()
+        private void GenerateData()
         {
-            Courses.Add(new Course { Id = Courses.Count + 1, Name = "Nou" });
+            Random rand = new();
+            var values = new ChartValues<double>(Enumerable.Range(1, 12).Select(_ => (double)rand.Next(50, 200)));
+
+            SeriesCollection = new SeriesCollection
+    {
+        new LineSeries { Title = "Client A", Values = values }
+    };
         }
 
-        private void DelCourse()
+
+        private void UpdateChartType()
         {
-            if (SelectedCourse != null)
-                Courses.Remove(SelectedCourse);
+            var values = SeriesCollection[0].Values;
+
+            if (SelectedChartType == "Líneas")
+            {
+                SeriesCollection = new SeriesCollection
+            {
+                new LineSeries { Title = "Client A", Values = values }
+            };
+            }
+            else if (SelectedChartType == "Barras")
+            {
+                SeriesCollection = new SeriesCollection
+            {
+                new ColumnSeries { Title = "Client A", Values = values }
+            };
+            }
         }
 
-        // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string? name = null)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

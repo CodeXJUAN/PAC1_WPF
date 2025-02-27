@@ -25,4 +25,8 @@
     <Page Remove="Views\Option2View.xaml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+  </ItemGroup>
+
 </Project>
