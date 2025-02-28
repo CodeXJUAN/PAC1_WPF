@@ -9,25 +9,21 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-
-    <UserControl.DataContext>
-        <local:SobreViewModel />
-    </UserControl.DataContext>
-
     <Grid Margin="10" Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <TextBlock
             Grid.Row="0"
-            Grid.Column="0"
+            Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="24"
@@ -37,7 +33,7 @@
 
         <TextBlock
             Grid.Row="1"
-            Grid.Column="0"
+            Grid.Column="1"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             FontSize="20"
@@ -47,19 +43,21 @@
 
         <TextBlock
             Grid.Row="2"
-            Grid.Column="0"
+            Grid.Column="1"
+            Margin="0,27,0,0"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center"
+            VerticalAlignment="Top"
             FontSize="20"
             FontWeight="Normal"
             Foreground="#2C3E50"
             Text="{Binding Autor1}" />
 
         <TextBlock
-            Grid.Row="3"
-            Grid.Column="0"
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="0,76,0,0"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center"
+            VerticalAlignment="Top"
             FontSize="20"
             FontWeight="Normal"
             Foreground="#2C3E50"

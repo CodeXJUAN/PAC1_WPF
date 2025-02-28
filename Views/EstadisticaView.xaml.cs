@@ -26,7 +26,6 @@ namespace WPF_MVVM_SPA_Template.Views
             public EstadisticaView()
             {
                 InitializeComponent();
-                DataContext = new EstadisticaView();
             }
     }
 }

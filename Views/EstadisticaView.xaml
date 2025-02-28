@@ -9,23 +9,29 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid>
+    <Grid Background="White">
+        <!--  ComboBox para seleccionar el tipo de gráfico  -->
         <ComboBox
-            Width="120"
-            Margin="10,10,0,0"
+            Width="96"
+            Margin="51,21,0,408"
             HorizontalAlignment="Left"
             ItemsSource="{Binding ChartTypes}"
             SelectedItem="{Binding SelectedChartType}" />
+        <!--  Binding al tipo de gráfico seleccionado  -->
 
+        <!--  Gráfico Cartesiano de LiveCharts  -->
         <lvc:CartesianChart
-            Grid.Row="1"
+            Margin="22,47,22,27"
             LegendLocation="Right"
             Series="{Binding SeriesCollection}">
+            <!--  Binding a la colección de series  -->
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Mesos" Labels="{Binding Labels}" />
+                <lvc:Axis Title="Mesos" Labels="{Binding Mesos}" />
+                <!--  Binding a las etiquetas del eje X (meses)  -->
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Rendiment" />
+                <lvc:Axis Title="Rendiment" Labels="{Binding Rendiment}" />
+                <!--  Título del eje Y  -->
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
     </Grid>

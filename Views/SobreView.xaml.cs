@@ -24,7 +24,6 @@ namespace WPF_MVVM_SPA_Template.Views
         public SobreView()
         {
             InitializeComponent();
-            DataContext = new SobreView();
         }
     }
 }

@@ -12,11 +12,11 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // Referència al ViewModel principal
         private readonly MainViewModel _mainViewModel;
 
-        // Col·lecció de Students (podrien carregar-se d'una base de dades)
+        // Col·lecció de Clients (podrien carregar-se d'una base de dades)
         // ObservableCollection és una llista que notifica els canvis a la vista
         public ObservableCollection<Clients> Clients { get; set; } = new ObservableCollection<Clients>();
 
-        // Propietat per controlar l'estudiant seleccionat a la vista
+        // Propietat per controlar el Client seleccionat a la vista
         private Clients? _selectedClients;
         public Clients? SelectedClients
         {
@@ -25,31 +25,30 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         }
 
         // RelayCommands connectats via Binding als botons de la vista
-        public RelayCommand AddClientsCommand { get; set; }
-        public RelayCommand DelClientsCommand { get; set; }
+        public RelayCommand AfegirClientForm { get; set; }
+        public RelayCommand MostarEstadisticaCommand { get; set; }
 
         public ClientsViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
             // Carreguem estudiants a memòria mode de prova
-            Clients.Add(new Clients { Id = 1, Nom = "David",  });
-            Clients.Add(new Clients { Id = 2, Nom = "Jordi",  });
+            Clients.Add(new Clients { Id = 1, DNI = "12345678A", Nom = "David", Cognoms = "Gonzalez", Email = "dgonalez@email.com", Telefon = "684 32 23 34" });
+            Clients.Add(new Clients { Id = 2, DNI = "98765432B", Nom = "Jordi", Cognoms = "Surinyac", Email = "jsurinyac@email.com", Telefon = "652 42 11 56" });
 
             // Inicialitzem els diferents commands disponibles (accions)
-            AddClientsCommand = new RelayCommand(x => AddClients());
-            DelClientsCommand = new RelayCommand(x => DelClients());
+            AfegirClientForm = new RelayCommand(x => AfegirClients());
+            MostarEstadisticaCommand = new RelayCommand(x => MostrarRendiment());
         }
 
         //Mètodes per afegir i eliminar estudiants de la col·lecció
-        private void AddClients()
+        private void AfegirClients()
         {
-            _mainViewModel.CurrentView = new IniciView { DataContext = null };
+            _mainViewModel.CurrentView = new FormulariView { DataContext = null };
         }
 
-        private void DelClients()
+        private void MostrarRendiment()
         {
-            if (SelectedClients != null)
-                Clients.Remove(SelectedClients);
+            _mainViewModel.CurrentView = new EstadisticaView{ DataContext = null };
         }
 
         // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels

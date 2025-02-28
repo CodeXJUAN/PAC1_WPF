@@ -8,16 +8,16 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid Margin="20" Background="White">
+    <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -38,7 +38,7 @@
             Grid.Row="0"
             Grid.Column="1"
             Margin="5"
-            Text="" />
+            Text="{Binding Id}" />
 
         <TextBlock
             Grid.Row="1"
@@ -57,7 +57,8 @@
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"
-            Margin="20"
+            Height="20"
+            Margin="20,0,20,0"
             VerticalAlignment="Center"
             FontWeight="Bold"
             Foreground="#2C3E50"
@@ -127,7 +128,7 @@
         <StackPanel
             Grid.Row="7"
             Grid.Column="1"
-            Margin="370,0,0,0"
+            Margin="265,0,0,1"
             HorizontalAlignment="Left"
             Orientation="Horizontal">
             <Button

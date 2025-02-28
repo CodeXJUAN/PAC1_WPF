@@ -15,10 +15,13 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         private SeriesCollection _seriesCollection;
         private string _selectedChartType;
 
-        public List<string> ChartTypes { get; } = new() { "Líneas", "Barras" };
+        public List<string> ChartTypes { get; } = new() { "Línies", "Barres" };
 
-        public string[] Labels { get; set; } = new string[]
-        { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+        public string[] Mesos { get; set; } = new string[]
+        { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+
+        public string[] Rendiment { get; set; } = new string[]
+        { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
 
         public SeriesCollection SeriesCollection
         {
@@ -43,38 +46,40 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public EstadisticaViewModel(MainViewModel mainViewModel)
         {
             GenerateData();
-            SelectedChartType = "Líneas";
+            SelectedChartType = "Línies";
         }
 
         private void GenerateData()
         {
             Random rand = new();
-            var values = new ChartValues<double>(Enumerable.Range(1, 12).Select(_ => (double)rand.Next(50, 200)));
+            var values = new ChartValues<double>
+            {
+                16, 14, 12, 10, 8, 6, 4, 0, 5, 7, 9, 11 // Valores de rendimiento de la imagen
+            };
 
             SeriesCollection = new SeriesCollection
-    {
-        new LineSeries { Title = "Client A", Values = values }
-    };
+            {
+                new LineSeries { Title = "Client A", Values = values }
+            };
         }
-
 
         private void UpdateChartType()
         {
             var values = SeriesCollection[0].Values;
 
-            if (SelectedChartType == "Líneas")
+            if (SelectedChartType == "Línies")
             {
                 SeriesCollection = new SeriesCollection
-            {
-                new LineSeries { Title = "Client A", Values = values }
-            };
+                {
+                    new LineSeries { Title = "Client A", Values = values }
+                };
             }
-            else if (SelectedChartType == "Barras")
+            else if (SelectedChartType == "Barres")
             {
                 SeriesCollection = new SeriesCollection
-            {
-                new ColumnSeries { Title = "Client A", Values = values }
-            };
+                {
+                    new ColumnSeries { Title = "Client A", Values = values }
+                };
             }
         }
 
@@ -82,6 +87,5 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }
