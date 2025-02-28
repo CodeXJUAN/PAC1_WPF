@@ -135,12 +135,14 @@
                 Width="80"
                 Margin="5"
                 Background="#2C3E50"
+                Command="{Binding GurardarCommand}"
                 Content="Guardar"
                 Foreground="White" />
             <Button
                 Width="80"
                 Margin="5"
                 Background="DarkRed"
+                Command="{Binding CancelarCommand}"
                 Content="Cancel·lar"
                 Foreground="White" />
         </StackPanel>

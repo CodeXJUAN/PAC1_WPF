@@ -9,8 +9,6 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // ViewModels de les diferents opcions
         public IniciViewModel IniciVM { get; set; }
         public ClientsViewModel ClientsVM { get; set; }
-        public FormViewModel FormulariVM { get; set; }
-        public EstadisticaViewModel EstadisticaVM { get; set; }
         public SobreViewModel SobreVM { get; set; }
 
         // Propietat que conté la vista actual
@@ -46,8 +44,6 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             // Inicialitzem els diferents ViewModels
             IniciVM = new IniciViewModel(this);
             ClientsVM = new ClientsViewModel(this);
-            FormulariVM = new FormViewModel(this);
-            EstadisticaVM = new EstadisticaViewModel(this);
             SobreVM = new SobreViewModel(this);
 
             // Mostra la vista principal inicialment
@@ -61,19 +57,13 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             switch (SelectedView ?? string.Empty)
             {
                 case "IniciTag":
-                    IniciVM ??= new IniciViewModel(this); // Lazy loading
                     CurrentView = new IniciView { DataContext = IniciVM };
                     break;
                 case "ClientsTag":
-                    ClientsVM ??= new ClientsViewModel(this); // Lazy loading
                     CurrentView = new ClientsView { DataContext = ClientsVM };
                     break;
                 case "SobreTag":
-                    SobreVM ??= new SobreViewModel(this); // Lazy loading
                     CurrentView = new SobreView { DataContext = SobreVM };
-                    break;
-                default:
-                    CurrentView = new IniciView { DataContext = IniciVM };
                     break;
             }
         }

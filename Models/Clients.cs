@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF_MVVM_SPA_Template.Models
 {
-    class Clients
+    class Client
     {
         public int Id { get; set; }
         public string DNI { get; set; } = string.Empty;
@@ -14,6 +14,6 @@ namespace WPF_MVVM_SPA_Template.Models
         public string Cognoms { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Telefon { get; set; } = string.Empty;
-        public DateTime DataAlta { get; set; }
+        public DateOnly DataAlta { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         public IniciViewModel(MainViewModel mainViewModel)
         {
-            // Inicializar valores
+            // Inicializar valors
             Titulo = "¡Benvingut a la Nostre PAC!";
         }
 
