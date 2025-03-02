@@ -132,7 +132,13 @@
             Grid.Column="1"
             Margin="5"
             Text="{Binding Client.DataAlta, Mode=TwoWay}" />
-
+        <TextBlock
+            Grid.Row="7"
+            Grid.Column="1"
+            Margin="10,10,10,10"
+            Foreground="Red"
+            Text="{Binding ErrorMessages}"
+            TextWrapping="Wrap" />
         <StackPanel
             Grid.Row="7"
             Grid.Column="1"

@@ -1,13 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+using System.Windows;
 using WPF_MVVM_SPA_Template.Models;
 using WPF_MVVM_SPA_Template.Views;
 
 namespace WPF_MVVM_SPA_Template.ViewModels
 {
     // El ViewModel deriva de INotifyPropertyChanged para poder hacer Binding de propiedades
-    class FormViewModel : INotifyPropertyChanged
+    class FormViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
         // Referencia al ViewModel principal
         private readonly MainViewModel _mainViewModel;
@@ -33,7 +35,6 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             // Inicializamos los comandos
             GuardarCommand = new RelayCommand(x => Guardar());
             CancelarCommand = new RelayCommand(x => Cancelar());
-
         }
 
         // Método para guardar los datos del formulario
@@ -41,6 +42,24 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             if (Client != null)
             {
+                // Verifica si hay errores antes de guardar
+                var errores = new List<string>
+                {
+                    this[nameof(Client.Nom)],
+                    this[nameof(Client.Cognoms)],
+                    this[nameof(Client.Email)],
+                    this[nameof(Client.Telefon)],
+                    this[nameof(Client.DataAlta)]
+                }.Where(e => !string.IsNullOrEmpty(e)).ToList();
+
+                if (errores.Any())
+                {
+                    // Establece los mensajes de error
+                    ErrorMessages = string.Join("\n", errores);
+                    OnPropertyChanged(nameof(ErrorMessages));
+                    return;
+                }
+
                 var clienteExistente = _clientsViewModel.Clients.FirstOrDefault(c => c.Id == Client.Id);
 
                 if (clienteExistente != null)
@@ -76,6 +95,52 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        // Implementación de IDataErrorInfo
+        public string Error => null;
+        public string ErrorMessages { get; set; }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = string.Empty;
+                switch (columnName)
+                {
+                    case nameof(Client.Nom):
+                        if (string.IsNullOrWhiteSpace(Client.Nom) || Client.Nom.Length < 3)
+                        {
+                            result = "Nom ha de tenir al menys 3 caràcters.";
+                        }
+                        break;
+                    case nameof(Client.Cognoms):
+                        if (string.IsNullOrWhiteSpace(Client.Cognoms) || Client.Cognoms.Length < 3)
+                        {
+                            result = "Cognoms ha de tenir al menys 3 caràcters.";
+                        }
+                        break;
+                    case nameof(Client.Email):
+                        if (string.IsNullOrWhiteSpace(Client.Email) || !Regex.IsMatch(Client.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                        {
+                            result = "Correu electrònic no té un format vàlid.";
+                        }
+                        break;
+                    case nameof(Client.Telefon):
+                        if (string.IsNullOrWhiteSpace(Client.Telefon) || Client.Telefon.Length < 9)
+                        {
+                            result = "Teléfon ha de tenir al menys 9 digits.";
+                        }
+                        break;
+                    case nameof(Client.DataAlta):
+                        if (Client.DataAlta == default)
+                        {
+                            result = "Data d'Alta no pot ser mes antiga a la de avui";
+                        }
+                        break;
+                }
+                return result;
+            }
         }
     }
 }
