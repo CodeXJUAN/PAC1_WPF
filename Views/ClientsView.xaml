@@ -60,10 +60,32 @@
             <Button
                 Margin="5"
                 Padding="10,5"
+                Background="#3288a6"
                 Command="{Binding AfegirClientForm}"
                 Content="Afegir Clients"
                 IsEnabled="{Binding SelectedClients}"
                 Style="{StaticResource ModernSecundaryButtonStyle}" />
+            <Button
+                Margin="5"
+                Padding="10,5"
+                Background="#3c8a40"
+                Command="{Binding EditarClientCommand}"
+                Content="Editar Client"
+                IsEnabled="{Binding HayClienteSeleccionado}"
+                Style="{StaticResource ModernPrimaryButtonStyle}" />
+            <Button
+                Margin="5"
+                Padding="10,5"
+                Background="#b63838"
+                Command="{Binding EliminarClientCommand}"
+                Content="Eliminar Client"
+                IsEnabled="{Binding SelectedClients}"
+                Style="{StaticResource ModernPrimaryButtonStyle}" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Left"
+            Orientation="Horizontal">
             <Button
                 Margin="5"
                 Padding="10,5"

@@ -14,6 +14,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // Referència al ViewModel principal
         private readonly MainViewModel _mainViewModel;
 
+
         // Col·lecció de Clients (podrien carregar-se d'una base de dades)
         // ObservableCollection és una llista que notifica els canvis a la vista
         public ObservableCollection<Client> Clients { get; set; } = new ObservableCollection<Client>();
@@ -30,18 +31,23 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public RelayCommand AfegirClientForm { get; set; }
         public RelayCommand MostarEstadisticaCommand { get; set; }
 
+        public RelayCommand EliminarClientCommand { get; set; }
+        public RelayCommand EditarClientCommand { get; set; }
+
         public ClientsViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
-            // Carreguem estudiants a memòria mode de prova
-            Clients.Add(new Client { Id = 1, DNI = "12345678A", Nom = "David", Cognoms = "Gonzalez", Email = "dgonzalez@email.com", Telefon = "684 32 23 34", DataAlta = new DateOnly(2010,8,2)});
-            Clients.Add(new Client { Id = 2, DNI = "98765432B", Nom = "Jordi", Cognoms = "Surinyac", Email = "jsurinyac@email.com", Telefon = "652 42 11 56", DataAlta = new DateOnly(2022,3,21)});
+
+            FormulariVM = new FormViewModel(_mainViewModel, this);
 
             // Inicialitzem els diferents commands disponibles (accions)
             AfegirClientForm = new RelayCommand(x => AfegirClients());
             MostarEstadisticaCommand = new RelayCommand(x => MostrarRendiment());
 
-            FormulariVM   = new FormViewModel(_mainViewModel);
+            EliminarClientCommand = new RelayCommand(x => EliminarClients());
+            EditarClientCommand = new RelayCommand(x => EditarClient());
+
+
             EstadisticaVM = new EstadisticaViewModel(_mainViewModel);
 
         }
@@ -49,6 +55,8 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         //Mètodes per afegir i eliminar estudiants de la col·lecció
         private void AfegirClients()
         {
+            // Crea un nuevo cliente con un ID basado en el número de clientes existentes
+            FormulariVM.Client = new Client { Id = Clients.Count + 1 }; // ID = Número de clientes + 1
             _mainViewModel.CurrentView = new FormulariView { DataContext = FormulariVM };
         }
 
@@ -57,7 +65,25 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             _mainViewModel.CurrentView = new EstadisticaView { DataContext = EstadisticaVM };
         }
 
-        // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
+        private void EliminarClients()
+        {
+            if (SelectedClients != null)
+                Clients.Remove(SelectedClients);
+
+        }
+        public bool HayClienteSeleccionado => SelectedClients != null;
+
+        private void EditarClient()
+        {
+            if (SelectedClients != null)
+            {
+                // Pasar el cliente seleccionado al FormViewModel
+                FormulariVM.Client = SelectedClients;
+                _mainViewModel.CurrentView = new FormulariView { DataContext = FormulariVM };
+            }
+        }
+
+         // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {

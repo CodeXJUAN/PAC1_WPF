@@ -54,10 +54,8 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public EstadisticaViewModel(MainViewModel mainViewModel)
         {
             GenerateData(); //valors random
-            SelectedChartType = "Barres"; // Establece el tipo de gráfico predeterminado
+            SelectedChartType = "Línies"; // Establece el tipo de gráfico predeterminado
             AxisXLabels = Mesos;
-
-            UpdateChartView = new RelayCommand(x => SelectedChartType());
         }
 
         // Método para generar datos de ejemplo

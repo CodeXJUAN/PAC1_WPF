@@ -73,7 +73,6 @@
         <Setter Property="Padding" Value="5,5" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Background" Value="#3498DB" />
-        <Setter Property="BorderBrush" Value="#2980B9" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="Cursor" Value="Hand" />
@@ -110,7 +109,6 @@
         <Setter Property="Padding" Value="5,5" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Background" Value="#790000" />
-        <Setter Property="BorderBrush" Value="#890025" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="Cursor" Value="Hand" />
