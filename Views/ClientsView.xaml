@@ -14,12 +14,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+
         <DataGrid
             Grid.Row="0"
             AutoGenerateColumns="False"
             IsReadOnly="True"
             ItemsSource="{Binding Clients}"
-            SelectedItem="{Binding SelectedClients}"
+            SelectedItem="{Binding SelectedClient, Mode=TwoWay}"
             SelectionChanged="DataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn

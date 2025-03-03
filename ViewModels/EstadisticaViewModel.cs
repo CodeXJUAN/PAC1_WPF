@@ -16,6 +16,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // Campos privados para las propiedades
         private SeriesCollection _seriesCollection;
         private string _selectedChartType;
+        private int _clientId;
 
         public RelayCommand GuardarCommand { get; set; }
 
@@ -48,30 +49,49 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 }
             }
         }
+        public int ClientId
+        {
+            get => _clientId;
+            set
+            {
+                if (_clientId != value)
+                {
+                    _clientId = value;
+                    GenerateData(_clientId); // Generar nuevos datos cuando cambia el ClientId
+                    OnPropertyChanged();
+                }
+            }
+        }
 
 
         // Constructor del ViewModel
-        public EstadisticaViewModel(MainViewModel mainViewModel)
+        public EstadisticaViewModel(MainViewModel mainViewModel, int clientId)
         {
-            GenerateData(); //valors random
+            ClientId = clientId; // Esto llamará a GenerateData automáticamente
             SelectedChartType = "Línies"; // Establece el tipo de gráfico predeterminado
             AxisXLabels = Mesos;
+            ChartTypes = new List<string> { "Línies", "Barres" };
         }
 
+
+
         // Método para generar datos de ejemplo
-        private void GenerateData()
+        private void GenerateData(int clientId)
         {
-            Random rand = new();
-            var values = new ChartValues<double>
+            Random rand = new(clientId); // Usar clientId como semilla para generar datos diferentes
+            var values = new ChartValues<double>();
+
+            for (int i = 0; i < 12; i++)
             {
-                13, 9, 12, 14, 8, 6, 6, 1, 5, 8, 19, 11 // Valores de rendimiento de ejemplo
-            };
+                values.Add(rand.Next(1, 20)); // Generar valores aleatorios entre 1 y 20
+            }
 
             SeriesCollection = new SeriesCollection
             {
-                new LineSeries {Values = values }
+                new LineSeries { Values = values }
             };
         }
+
 
         // CAMBIAR segons el tipus de gràgic que hem seleccionat
 

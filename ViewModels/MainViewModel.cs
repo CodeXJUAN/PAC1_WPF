@@ -43,7 +43,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             // Inicialitzem els diferents ViewModels
             IniciVM = new IniciViewModel(this);
-            ClientsVM = new ClientsViewModel(this);
+            ClientsVM = new ClientsViewModel(this, 1);
             SobreVM = new SobreViewModel(this);
 
             // Mostra la vista principal inicialment

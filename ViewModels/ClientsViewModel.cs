@@ -21,6 +21,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         // Propietat per controlar el Client seleccionat a la vista
         private Client? _selectedClients;
+        private Client? _selectedClient;
         public Client? SelectedClients
         {
             get { return _selectedClients; }
@@ -34,22 +35,18 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public RelayCommand EliminarClientCommand { get; set; }
         public RelayCommand EditarClientCommand { get; set; }
 
-        public ClientsViewModel(MainViewModel mainViewModel)
+        public ClientsViewModel(MainViewModel mainViewModel, int clientId)
         {
             _mainViewModel = mainViewModel;
-
-            FormulariVM = new FormViewModel(_mainViewModel, this);
+            EstadisticaVM = new EstadisticaViewModel(mainViewModel, clientId);
+            Clients = new ObservableCollection<Client>();
+            FormulariVM = new FormViewModel(mainViewModel, this);
 
             // Inicialitzem els diferents commands disponibles (accions)
-            AfegirClientForm = new RelayCommand(x => AfegirClients());
-            MostarEstadisticaCommand = new RelayCommand(x => MostrarRendiment());
-
-            EliminarClientCommand = new RelayCommand(x => EliminarClients());
-            EditarClientCommand = new RelayCommand(x => EditarClient());
-
-
-            EstadisticaVM = new EstadisticaViewModel(_mainViewModel);
-
+            AfegirClientForm = new RelayCommand(_ => AfegirClients());
+            MostarEstadisticaCommand = new RelayCommand(_ => MostrarRendiment());
+            EliminarClientCommand = new RelayCommand(_ => EliminarClients());
+            EditarClientCommand = new RelayCommand(_ => EditarClient());
         }
 
         //Mètodes per afegir i eliminar estudiants de la col·lecció
@@ -72,6 +69,22 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         }
         public bool HayClienteSeleccionado => SelectedClients != null;
+        public Client? SelectedClient
+        {
+            get => _selectedClient;
+            set
+            {
+                if (_selectedClient != value)
+                {
+                    _selectedClient = value;
+                    OnPropertyChanged();
+                    if (_selectedClient != null)
+                    {
+                        EstadisticaVM.ClientId = _selectedClient.Id; // Actualizar ClientId en EstadisticaViewModel
+                    }
+                }
+            }
+        }
 
         private void EditarClient()
         {
