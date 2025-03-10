@@ -72,7 +72,7 @@
                 Background="#3c8a40"
                 Command="{Binding EditarClientCommand}"
                 Content="Editar Client"
-                IsEnabled="{Binding HayClienteSeleccionado}"
+                IsEnabled="{Binding SelectedClients}"
                 Style="{StaticResource ModernPrimaryButtonStyle}" />
             <Button
                 Margin="5"

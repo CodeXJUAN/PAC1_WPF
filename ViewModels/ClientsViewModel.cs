@@ -14,24 +14,21 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // Referència al ViewModel principal
         private readonly MainViewModel _mainViewModel;
 
-
         // Col·lecció de Clients (podrien carregar-se d'una base de dades)
         // ObservableCollection és una llista que notifica els canvis a la vista
         public ObservableCollection<Client> Clients { get; set; } = new ObservableCollection<Client>();
 
         // Propietat per controlar el Client seleccionat a la vista
-        private Client? _selectedClients;
         private Client? _selectedClient;
-        public Client? SelectedClients
+        public Client? SelectedClient
         {
-            get { return _selectedClients; }
-            set { _selectedClients = value; OnPropertyChanged(); }
+            get { return _selectedClient; }
+            set { _selectedClient = value; OnPropertyChanged(); }
         }
 
         // RelayCommands connectats via Binding als botons de la vista
         public RelayCommand AfegirClientForm { get; set; }
         public RelayCommand MostarEstadisticaCommand { get; set; }
-
         public RelayCommand EliminarClientCommand { get; set; }
         public RelayCommand EditarClientCommand { get; set; }
 
@@ -64,45 +61,25 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         private void EliminarClients()
         {
-            if (SelectedClients != null)
-                Clients.Remove(SelectedClients);
-
-        }
-        public bool HayClienteSeleccionado => SelectedClients != null;
-        public Client? SelectedClient
-        {
-            get => _selectedClient;
-            set
-            {
-                if (_selectedClient != value)
-                {
-                    _selectedClient = value;
-                    OnPropertyChanged();
-                    if (_selectedClient != null)
-                    {
-                        EstadisticaVM.ClientId = _selectedClient.Id; // Actualizar ClientId en EstadisticaViewModel
-                    }
-                }
-            }
+            if (SelectedClient != null)
+                Clients.Remove(SelectedClient);
         }
 
         private void EditarClient()
         {
-            if (SelectedClients != null)
+            if (SelectedClient != null)
             {
                 // Pasar el cliente seleccionado al FormViewModel
-                FormulariVM.Client = SelectedClients;
+                FormulariVM.Client = SelectedClient;
                 _mainViewModel.CurrentView = new FormulariView { DataContext = FormulariVM };
             }
         }
 
-         // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
+        // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
     }
 }
-
