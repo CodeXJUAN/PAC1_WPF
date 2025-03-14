@@ -36,6 +36,7 @@
         <TextBlock
             Name="txtID"
             Grid.Row="0"
+            VerticalAlignment="Center"
             Grid.Column="1"
             Margin="5"
             Text="{Binding Client.Id}" />
