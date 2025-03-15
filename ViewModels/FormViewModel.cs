@@ -22,6 +22,15 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             get { return _client; }
             set { _client = value; OnPropertyChanged(); }
         }
+
+        // Propiedades para los mensajes de error
+        public string DNIError { get; set; }
+        public string NomError { get; set; }
+        public string CognomsError { get; set; }
+        public string EmailError { get; set; }
+        public string TelefonError { get; set; }
+        public string DataAltaError { get; set; }
+
         // Comandos para los botones de la vista
         public RelayCommand GuardarCommand { get; set; }
         public RelayCommand CancelarCommand { get; set; }
@@ -45,6 +54,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 // Verifica si hay errores antes de guardar
                 var errores = new List<string>
                 {
+                    this[nameof(Client.DNI)],
                     this[nameof(Client.Nom)],
                     this[nameof(Client.Cognoms)],
                     this[nameof(Client.Email)],
@@ -108,37 +118,74 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 string result = string.Empty;
                 switch (columnName)
                 {
+                    case nameof(Client.DNI):
+                        if (string.IsNullOrWhiteSpace(Client.DNI))
+                        {
+                            result = "DNI no puede estar vacío.";
+                            DNIError = result;
+                        }
+                        else
+                        {
+                            DNIError = string.Empty;
+                        }
+                        break;
                     case nameof(Client.Nom):
                         if (string.IsNullOrWhiteSpace(Client.Nom) || Client.Nom.Length < 3)
                         {
                             result = "Nom ha de tenir al menys 3 caràcters.";
+                            NomError = result;
+                        }
+                        else
+                        {
+                            NomError = string.Empty;
                         }
                         break;
                     case nameof(Client.Cognoms):
                         if (string.IsNullOrWhiteSpace(Client.Cognoms) || Client.Cognoms.Length < 3)
                         {
                             result = "Cognoms ha de tenir al menys 3 caràcters.";
+                            CognomsError = result;
+                        }
+                        else
+                        {
+                            CognomsError = string.Empty;
                         }
                         break;
                     case nameof(Client.Email):
                         if (string.IsNullOrWhiteSpace(Client.Email) || !Regex.IsMatch(Client.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                         {
                             result = "Correu electrònic no té un format vàlid.";
+                            EmailError = result;
+                        }
+                        else
+                        {
+                            EmailError = string.Empty;
                         }
                         break;
                     case nameof(Client.Telefon):
                         if (string.IsNullOrWhiteSpace(Client.Telefon) || Client.Telefon.Length < 9)
                         {
                             result = "Teléfon ha de tenir al menys 9 digits.";
+                            TelefonError = result;
+                        }
+                        else
+                        {
+                            TelefonError = string.Empty;
                         }
                         break;
                     case nameof(Client.DataAlta):
                         if (Client.DataAlta == default)
                         {
                             result = "Data d'Alta no pot ser mes antiga a la de avui";
+                            DataAltaError = result;
+                        }
+                        else
+                        {
+                            DataAltaError = string.Empty;
                         }
                         break;
                 }
+                OnPropertyChanged(columnName + "Error");
                 return result;
             }
         }
