@@ -16,12 +16,33 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         private readonly ClientsViewModel _clientsViewModel;
 
         private Client _client;
+        private Client _originalClient;
 
         public Client Client
         {
             get { return _client; }
-            set { _client = value; OnPropertyChanged(); }
+            set
+            {
+                _client = value;
+                _originalClient = CloneClient(_client); // Guardar una copia del cliente original
+                OnPropertyChanged();
+            }
         }
+
+        private Client CloneClient(Client client)
+        {
+            return new Client
+            {
+                Id = client.Id,
+                DNI = client.DNI,
+                Nom = client.Nom,
+                Cognoms = client.Cognoms,
+                Email = client.Email,
+                Telefon = client.Telefon,
+                DataAlta = client.DataAlta
+            };
+        }
+
 
         // Propiedades para los mensajes de error
         public string DNIError { get; set; }
@@ -96,7 +117,18 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // Método para cancelar la edición del formulario
         private void Cancelar()
         {
-            // Cambia la vista actual a la vista de clientes
+            // Restaurar los valores originales del cliente
+            if (_originalClient != null)
+            {
+                Client.DNI = _originalClient.DNI;
+                Client.Nom = _originalClient.Nom;
+                Client.Cognoms = _originalClient.Cognoms;
+                Client.Email = _originalClient.Email;
+                Client.Telefon = _originalClient.Telefon;
+                Client.DataAlta = _originalClient.DataAlta;
+            }
+
+            // Cambia la vista actual a la vista de clientes sin guardar cambios
             _mainViewModel.CurrentView = new ClientsView { DataContext = _mainViewModel.ClientsVM };
         }
 
