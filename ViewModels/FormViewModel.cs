@@ -26,6 +26,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 _client = value;
                 _originalClient = CloneClient(_client); // Guardar una copia del cliente original
                 OnPropertyChanged();
+                ValidateAllProperties();
             }
         }
 
@@ -42,7 +43,6 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 DataAlta = client.DataAlta
             };
         }
-
 
         // Propiedades para los mensajes de error
         public string DNIError { get; set; }
@@ -206,9 +206,9 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                         }
                         break;
                     case nameof(Client.DataAlta):
-                        if (Client.DataAlta == default)
+                        if (Client.DataAlta < DateOnly.FromDateTime(DateTime.Today))
                         {
-                            result = "Data d'Alta no pot ser mes antiga a la de avui";
+                            result = "Data d'Alta no pot ser anterior a la data d'avui.";
                             DataAltaError = result;
                         }
                         else
@@ -221,5 +221,102 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 return result;
             }
         }
+
+        private void ValidateAllProperties()
+        {
+            _ = this[nameof(Client.DNI)];
+            _ = this[nameof(Client.Nom)];
+            _ = this[nameof(Client.Cognoms)];
+            _ = this[nameof(Client.Email)];
+            _ = this[nameof(Client.Telefon)];
+            _ = this[nameof(Client.DataAlta)];
+        }
+    }
+}
+
+class Client : INotifyPropertyChanged
+{
+    private int _id;
+    private string _dni;
+    private string _nom;
+    private string _cognoms;
+    private string _email;
+    private string _telefon;
+    private DateOnly _dataAlta;
+
+    public int Id
+    {
+        get => _id;
+        set
+        {
+            _id = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string DNI
+    {
+        get => _dni;
+        set
+        {
+            _dni = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string Nom
+    {
+        get => _nom;
+        set
+        {
+            _nom = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string Cognoms
+    {
+        get => _cognoms;
+        set
+        {
+            _cognoms = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string Email
+    {
+        get => _email;
+        set
+        {
+            _email = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string Telefon
+    {
+        get => _telefon;
+        set
+        {
+            _telefon = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public DateOnly DataAlta
+    {
+        get => _dataAlta;
+        set
+        {
+            _dataAlta = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName] string? name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }
